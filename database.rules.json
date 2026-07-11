@@ -1,0 +1,292 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "users": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["uid", "role", "status", "_timestamp", "createdAt", "created_at", "lastLogin"],
+      "$userId": {
+        ".read": "auth != null",
+        ".write": "auth != null && (auth.uid === $userId || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        "lastLogin": {
+          ".write": "auth != null && auth.uid === $userId"
+        }
+      }
+    },
+
+    "requisitions": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "status", "programme", "Programme", "uid", "submittedBy", "createdAt",
+        "_timestamp", "date", "Date", "created_at", "requestedAt", "requestDate",
+        "approvedAt", "authorizedAt", "transactionCompletedAt", "completedAt", "rejectedAt", "submittedAt"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null || !data.exists()",
+        "history": {
+          ".read": "auth != null",
+          ".write": "auth != null",
+          ".indexOn": ["timestamp", "createdAt", "_timestamp"],
+          "$historyId": {
+            ".write": "auth != null"
+          }
+        }
+      }
+    },
+
+    "capacityBuilding": {
+      ".read": "auth != null",
+      ".write": "true",
+      ".indexOn": [
+        "programme", "Programme", "submittedBy", "createdAt",
+        "_timestamp", "date", "Date", "created_at", "trainingDate", "startDate", "endDate", "rawTimestamp"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "orders": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at", "orderDate"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "farmers": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "registrationDate", "registration_date",
+        "registeredAt", "timestamp", "date"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "fodderFarmers": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at", "registrationDate",
+        "registration_date", "registeredAt", "timestamp"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "offtakes": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "purchaseDate", "purchase_date",
+        "createdAt", "created_at"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "Onboarding": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "AnimalHealthActivities": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at",
+        "vaccinationDate", "vaccination_date"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "BoreholeStorage": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "HayStorage": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date_planted", "datePlanted", "date_sold", "dateSold",
+        "date", "Date", "createdAt", "created_at"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "hrStaffDirectory": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "date"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "hrStaffMarks": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "date"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "fieldTeam": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["_timestamp", "createdAt", "created_at"]
+    },
+
+    "prices": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": ["_timestamp", "createdAt", "created_at", "date"]
+    },
+
+    "smsOutbox": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "date", "sentAt"
+      ],
+      "$messageId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "Recent Activities": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "date", "Date", "timestamp"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "Infrastructure Data": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "date", "Date"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "Fodder Offtake Data": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at", "purchaseDate"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "activities": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at", "status"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "boreholes": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "date", "Date", "createdAt", "created_at"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+
+    "training": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      ".indexOn": [
+        "programme", "Programme",
+        "_timestamp", "createdAt", "created_at", "startDate", "endDate", "rawTimestamp", "date"
+      ],
+      "$recordId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    }
+  }
+}

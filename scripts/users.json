@@ -1,0 +1,16 @@
+[
+  {
+    "email": "ezekielkirui62@gmail.com",
+    "password": "@Shadi2001",
+    "name": "Martin",
+    "phoneNumber": "0701396967",
+    "role": "Admin",
+    "allowedProgrammes": {
+      "KPMD": true,
+      "RANGE": true,
+      "KPMD 2": true
+    },
+    "status": "active",
+    "userAttribute": null
+  }
+]
