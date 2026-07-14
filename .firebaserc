@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "default": "genco-export",
+  "projects": {
+    "default": "genco-export"
+  }
+}

@@ -1,0 +1,6 @@
+.env
+node_modules
+scripts/service-account-key.json
+functions/service-account-key.json
+.vercel
+.vercel
